@@ -10,5 +10,8 @@
     "url": "git@ischweller:ischweller/ui-challenge.git"
   },
   "author": "Inacio Schweller",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.8.11"
+  }
 }

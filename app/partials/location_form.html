@@ -1,9 +1,27 @@
-<div>
-	<h1>GeoLocation Form</h1>
+<section>
 
-	<form name="form">
-		<input name="host" type="text" ng-model="ctrl.host" valid-url>
-		<button ng-click="ctrl.getHostLocation()" ng-disabled="form.host.$error.validUrl">Locate Host</button>
-		<button ng-click="ctrl.getMyLocation()">My Location</button>
-	</form>
-</div>
+		<h1>GeoLocation Form</h1>
+
+		<form name="form" class="form-inline">
+			<div class="form-group">
+				<label class="sr-only" for="inputHost">Host</label>
+				<input class="form-control" placeholder="Enter host" id="inputHost" name="host" type="text" ng-model="ctrl.host" valid-url>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary" ng-click="ctrl.getHostLocation()" ng-disabled="form.host.$error.validUrl">Locate Host</button>
+				<button class="btn btn-primary" ng-click="ctrl.getMyLocation()">My Location</button>				
+			</div>
+		</form>
+
+		<h4>Estimated location</h4>
+		<ul class="geodata list-unstyled">
+			<li class="query">IP: <span>{{ctrl.mylocation.query}}</span></li>
+			<li class="country">Country: <span>{{ctrl.mylocation.country}}</span></li>
+			<li class="region">Region: <span>{{ctrl.mylocation.regionName}}</span></li>
+			<li class="city">City: <span>{{ctrl.mylocation.city}}</span></li>
+			<li class="timezone">Time Zone: <span>{{ctrl.mylocation.timezone}}</span></li>
+			<li class="latitude">Latitude: <span>{{ctrl.mylocation.lat}}</span></li>
+			<li class="longitude">Longitude: <span>{{ctrl.mylocation.lon}}</span></li>
+		</div>
+
+</section>

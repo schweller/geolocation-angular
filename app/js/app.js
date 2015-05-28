@@ -1,6 +1,13 @@
 'use strict';
-//var regex = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i;
+
 var regex = /^(?!www | www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/;
+var mapboxToken = 'pk.eyJ1IjoiaXNjbWVuZG9uY2EiLCJhIjoiZDhiYzNiNDA3Njc1OTU1ZWJiYWZiZTFlZTkxNWE2NWEifQ.jkjIWUB1_ShShM0M1xZBMA';
+
+$(document).ready(function() {
+	L.mapbox.accessToken = mapboxToken;
+	var map = L.mapbox.map('map', 'mapbox.streets')
+	    .setView([40, -74.50], 9);
+});
 
 angular.module('geoLocationService', ['ngResource'])
 	.factory('findHostLocation', function($resource) {
@@ -39,6 +46,8 @@ angular.module('geoLocationForm', [])
 	})
 	.controller('GeoLocationCtrl', function($scope, findHostLocation, findMyLocation) {
 
+		this.mylocation = {};
+
 		this.getHostLocation = function() {
 			console.log(this.host);
 			findHostLocation.get({ host: this.host }, function(response) {
@@ -49,8 +58,13 @@ angular.module('geoLocationForm', [])
 		this.getMyLocation = function() {
 			findMyLocation.get({}, function(response) {
 				console.log(response);
+				$scope.ctrl.updateMyLocationData(response);
 			});
 		};
+
+		this.updateMyLocationData = function(data) {
+			this.mylocation = data;
+		}
 
 	});
 

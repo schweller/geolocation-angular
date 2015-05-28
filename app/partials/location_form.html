@@ -1,8 +1,9 @@
 <div>
 	<h1>GeoLocation Form</h1>
 
-	<form action="">
-		<input type="text">
-		<button>Confirm</button>
+	<form>
+		<input type="text" ng-model="ctrl.host">
+		<button ng-click="ctrl.getHostLocation()">Locate Host</button>
+		<button ng-click="ctrl.getMyLocation()">My Location</button>
 	</form>
 </div>

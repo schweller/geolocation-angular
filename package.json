@@ -1,0 +1,22 @@
+{
+  "name": "ui-challenge",
+  "version": "1.0.0",
+  "description": "ui-challenge source files",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@ischweller:ischweller/ui-challenge.git"
+  },
+  "author": "Inacio Schweller",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.7.5",
+    "gulp": "^3.8.11",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.1",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.0"
+  }
+}

@@ -83,37 +83,9 @@ angular.module('geoLocationForm', [])
 
 				myLocationMarker.addTo(map);
 				map.setView([data.lat, data.lon], 13);
-			} 
-
-
-
-			// L.mapbox.featureLayer({
-			//     // this feature is in the GeoJSON format: see geojson.org
-			//     // for the full specification
-			//     type: 'Feature',
-			//     geometry: {
-			//         type: 'Point',
-			//         // coordinates here are in longitude, latitude order because
-			//         // x, y is the standard for GeoJSON and many formats
-			//         coordinates: [
-			//           data.lon,
-			//           data.lat 
-			//         ]
-			//     },
-			//     properties: {
-			//         title: 'Your estimated location',
-			//         // one can customize markers by adding simplestyle properties
-			//         // https://www.mapbox.com/guides/an-open-platform/#simplestyle
-			//         'marker-size': 'large',
-			//         'marker-color': '#BE9A6B',
-			//         'marker-symbol': 'circle-stroked'
-			//     }
-			// }).addTo(map);
-			
+			};
 
 		};
-
-
 
 		this.addHostLocationToMap = function(data) { 
 			hostLocation = L.mapbox.featureLayer({

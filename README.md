@@ -15,7 +15,7 @@
  
 ### JS libs ###
 * jQuery;
-* Angular;
+* AngularJS;
 * Mapbox;
 
 ### Additional comments ###

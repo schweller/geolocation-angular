@@ -38,27 +38,30 @@ angular.module('geoLocationForm', [])
 			controllerAs: 'ctrl'
 		};
 	})
-	.controller('GeoLocationCtrl', function($scope, findHostLocation, findMyLocation) {
+	.controller('GeoLocationCtrl', ['$scope', 'findHostLocation', 'findMyLocation', function($scope, findHostLocation, findMyLocation) {
 
-		var myLocationMarker;
-		var hostLocation;
+		var myLocationMarker,
+			hostLocation,
+			map;
+
 		this.mylocation = {};
 
-		L.mapbox.accessToken = mapboxToken;
-		var map = L.mapbox.map('map', 'mapbox.streets')
-		    .setView([40, -74.50], 9);		
+		this.loadMap = function() {
+			L.mapbox.accessToken = mapboxToken;
+			map = L.mapbox.map('map', 'mapbox.streets')
+			    .setView([40, -74.50], 9);
+		};
 
 		this.getHostLocation = function() {
-			console.log(this.host);
 			findHostLocation.get({ host: this.host }, function(response) {
-				console.log(response);
+				map == undefined ? $scope.ctrl.loadMap() : false;
 				$scope.ctrl.addHostLocationToMap(response);
 			});
 		};
 
 		this.getMyLocation = function() {
 			findMyLocation.get({}, function(response) {
-				console.log(response);
+				map == undefined ? $scope.ctrl.loadMap() : false;
 				$scope.ctrl.updateMyLocationData(response);
 				$scope.ctrl.addMyLocationToMap(response);
 			});
@@ -66,7 +69,7 @@ angular.module('geoLocationForm', [])
 
 		this.resetMyLocation = function() {
 			var emptyData = {};
-			map.removeLayer(myLocationMarker);
+			myLocationMarker != null ? map.removeLayer(myLocationMarker) : false;
 			myLocationMarker = null;
 			$scope.ctrl.updateMyLocationData(emptyData);		
 		}
@@ -119,6 +122,6 @@ angular.module('geoLocationForm', [])
 			this.mylocation = data;
 		}
 
-	});
+	}]);
 
 var app = angular.module('geoLocationApp', ['geoLocationForm', 'geoLocationService', 'urlValidation']);

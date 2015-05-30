@@ -4,11 +4,25 @@ var regex = /^(?!www | www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/;
 var mapboxToken = 'pk.eyJ1IjoiaXNjbWVuZG9uY2EiLCJhIjoiZDhiYzNiNDA3Njc1OTU1ZWJiYWZiZTFlZTkxNWE2NWEifQ.jkjIWUB1_ShShM0M1xZBMA';
 
 angular.module('geoLocationService', ['ngResource'])
-	.factory('findHostLocation', function($resource) {
-		return $resource('http://freegeoip.net/json/:host');
+	.factory('findHostLocation', function($http) {
+		return {
+			getLocation: function(host) {
+				return $http.get('http://freegeoip.net/json/' + host)
+					.then(function(result) {
+						return result;
+					});
+			}
+		};
 	})
-	.factory('findMyLocation', function($resource) {
-		return $resource('http://ip-api.com/json/');
+	.factory('findMyLocation', function($http) {
+		return {
+			getLocation: function() {
+				return $http.get('http://ip-api.com/json/')
+					.then(function(result) {
+						return result;
+					});
+			}
+		}
 	});
 
 angular.module('urlValidation', [])
@@ -48,22 +62,22 @@ angular.module('geoLocationForm', [])
 
 		this.loadMap = function() {
 			L.mapbox.accessToken = mapboxToken;
-			map = L.mapbox.map('map', 'mapbox.streets')
+			return map = L.mapbox.map('map', 'mapbox.streets')
 			    .setView([40, -74.50], 9);
 		};
 
 		this.getHostLocation = function() {
-			findHostLocation.get({ host: this.host }, function(response) {
+			return findHostLocation.getLocation(this.host).then(function(response) {
 				map == undefined ? $scope.ctrl.loadMap() : false;
-				$scope.ctrl.addHostLocationToMap(response);
+				$scope.ctrl.addHostLocationToMap(response.data);
 			});
 		};
 
 		this.getMyLocation = function() {
-			findMyLocation.get({}, function(response) {
+			return findMyLocation.getLocation().then(function(response) {
 				map == undefined ? $scope.ctrl.loadMap() : false;
-				$scope.ctrl.updateMyLocationData(response);
-				$scope.ctrl.addMyLocationToMap(response);
+				$scope.ctrl.updateMyLocationData(response.data);
+				$scope.ctrl.addMyLocationToMap(response.data);
 			});
 		};
 
@@ -124,4 +138,4 @@ angular.module('geoLocationForm', [])
 
 	}]);
 
-var app = angular.module('geoLocationApp', ['geoLocationForm', 'geoLocationService', 'urlValidation']);
+var app = window.app = angular.module('geoLocationApp', ['geoLocationForm', 'geoLocationService', 'urlValidation']);

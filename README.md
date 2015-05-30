@@ -11,6 +11,7 @@
 
 ### Unit Testing ###
 * Unit tests written with Jasmine, running on Karma;
+* Install karma-cli via npm running ``` npm install -g karma-cli ```;
 * Run ``` karma start ``` to execute the tests;
 * The spec file is in the ``` ./test ``` folder.
  

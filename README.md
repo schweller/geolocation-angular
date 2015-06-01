@@ -1,4 +1,4 @@
-# Avenue Code UI Challenge - Inacio Schweller entry #
+# Geolocation (host or ip) with AngularJS #
 
 ### Requirements ###
 * Node.js;
